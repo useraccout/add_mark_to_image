@@ -1,0 +1,17 @@
+{% set active_page = "info" %} {% extends '_wrapper.html' %} {% block content %}
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/abour.css') }}" />
+</head>
+
+<body>
+  <h1 class="mt-5">Описание сервиса</h1>
+  <p class="lead">Веб сервис для добавления креста на изображение</p>
+  <p>
+    На изображение можно добавить вертикальный или горизонтальный цвет любого заданного цвета в пространстве RGB
+  </p>
+</body>
+
+</html>
+{% endblock %}

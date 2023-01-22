@@ -1,0 +1,70 @@
+<html>
+  <head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    {% if title %}
+    <title>{{ title }} - Добавление креста на изображение</title>
+    {% else %}
+    <title>Добавлй креста</title>
+    {% endif %}
+
+    <style>
+      .form-group {
+        margin-top: 1rem;
+      }
+    </style>
+  </head>
+
+  <body class="d-flex flex-column h-100">
+    <nav class="navbar navbar-expand-sm bg-light">
+      <div class="container-fluid">
+        <span class="navbar-brand" href="{{ url_for('default_router') }}"
+          >Добавление креста</span
+        >
+        <!-- Links -->
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a
+              class="
+              btn
+            {{ 'btn-primary' if active_page == 'index' else 'btn-light' }}
+            "
+              href="{{ url_for('default_router') }}"
+              >Начало работы</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="
+              btn
+            {{ 'btn-primary' if active_page == 'info' else 'btn-light' }}"
+              href="{{ url_for('info') }}"
+              >Описание</a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="flex-shrink-0">
+      <div class="container">{% block content %} {% endblock %}</div>
+    </main>
+    <footer class="footer mt-auto py-3 bg-light">
+      <div class="container">
+        <span class="text-muted">2023</span>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      btn_submit = document.getElementById("submit");
+      btn_submit.classList.remove("btn-default");
+      btn_submit.classList.add("btn-danger");
+      btn_submit.classList.add("mt-2");
+    </script>
+  </body>
+</html>

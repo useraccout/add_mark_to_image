@@ -1,0 +1,8 @@
+{% set active_page = 'index' %} {% extends '_wrapper.html' %} {% import
+'bootstrap/wtf.html' as wtf %} {% block content %}
+<center>
+  <h1 class="mt-5">Добавление креста на изображение</h1>
+  {{ wtf.quick_form(form, method = 'post', enctype = 'multipart/form-data',
+  action = '/#') }}
+  
+{% endblock %}
