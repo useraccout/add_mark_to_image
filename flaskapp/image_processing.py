@@ -1,6 +1,9 @@
+import matplotlib
 import matplotlib.pyplot as plt
-from PIL import Image
 import numpy as np
+from PIL import Image
+
+matplotlib.use("TkAgg")
 
 
 def open_image(file_name: str) -> Image:
@@ -37,6 +40,7 @@ def mark_plot(
                 image_array[:, center[0] - line_size // 2 : center[0], i] = color
                 image_array[:, center[0] : center[0] + line_size // 2, i] = color
         image = Image.fromarray((255.0 * image_array).astype(np.uint8))
+        print(image)
     except Exception as e:
         print(e)
         return None
@@ -57,6 +61,7 @@ def image_color_distribution(image: str) -> plt.figure:
     blue.imshow(image[:, :, 2], cmap="Blues")
     green.imshow(image[:, :, 1], cmap="Greens")
     fig.tight_layout()
+    plt.show()
     return fig
 
 

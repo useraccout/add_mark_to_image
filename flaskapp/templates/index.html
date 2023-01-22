@@ -2,7 +2,59 @@
 'bootstrap/wtf.html' as wtf %} {% block content %}
 <center>
   <h1 class="mt-5">Добавление креста на изображение</h1>
+
   {{ wtf.quick_form(form, method = 'post', enctype = 'multipart/form-data',
   action = '/#') }}
-  
+  <div class="container-xl">
+    <div class="row align-items-center">
+      <div class="col">
+        <h3>Исходное</h3>
+        {% if image_name %}
+        <a href="{{ image_name }}">
+          <img style="height: 100%; width: 100%" src="{{ image_name }}" class="img-rounded" alt="Source" />
+        </a>
+        {% else %}
+        <p>Изображение не добавлено</p>
+        {% endif %}
+      </div>
+      <div class="col">
+        <h3>Обработанное</h3>
+        {% if image_name_proc %}
+        <a href="{{ image_name_proc }}">
+          <img style="height: 100%; width: 100%" src="{{ image_name_proc }}" class="img-rounded" alt="Proc" />
+        </a>
+
+        {% else %}
+        <p>Изображение не обработано</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="padding">
+  </div>
+  <div class="row">
+    {% if save_color_image %}
+    <div class="container">
+      <h2>Распределение цветов исходного изображения</h2>
+      <a href="{{ save_color_image }}">
+        <img style="height: 100%; width: 100%" src="{{ save_color_image }}" class="img-rounded" alt="Proc" />
+      </a>
+
+      {% else %} {% endif %}
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="row">
+
+    {% if save_color_new_image %}
+    <div class="container">
+      <h2>Распределение цветов обработаного изображения</h2>
+      <a href="{{ save_color_new_image }}">
+        <img style="height: 100%; width: 100%" src="{{ save_color_new_image }}" class="img-rounded" alt="Proc" />
+      </a>
+      {% else %} {% endif %}
+    </div>
+  </div>
+</center>
 {% endblock %}

@@ -1,4 +1,5 @@
 import os
+import secrets
 
 from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap
@@ -21,11 +22,11 @@ from image_processing import (
 
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = os.urandom(32)
-app.config["RECAPTCHA_USE_SSL"] = False
-app.config["RECAPTCHA_PUBLIC_KEY"] = os.environ.get("RECAPTCHA_PUBLIC_KEY")
-app.config["RECAPTCHA_PRIVATE_KEY"] = os.environ.get("RECAPTCHA_PRIVATE_KEY")
-app.config["SESSION_COOKIE_DOMAIN"] = False
+app.config["SECRET_KEY"] = secrets.token_urlsafe(16)
+# app.config["RECAPTCHA_USE_SSL"] = False
+# app.config["RECAPTCHA_PUBLIC_KEY"] = os.environ.get("RECAPTCHA_PUBLIC_KEY")
+# app.config["RECAPTCHA_PRIVATE_KEY"] = os.environ.get("RECAPTCHA_PRIVATE_KEY")
+# app.config["SESSION_COOKIE_DOMAIN"] = False
 app.config["RECAPTCHA_OPTIONS"] = {"theme": "dark light"}
 bootstrap = Bootstrap(app)
 
@@ -48,7 +49,7 @@ class FilterForm(FlaskForm):
         ],
         description="jpg, png, jpeg",
     )
-    # recaptcha = RecaptchaField()
+    #    recaptcha = RecaptchaField()
     red_color = DecimalField(
         label="Процент красного цвета",
         validators=[
@@ -100,7 +101,6 @@ def default_router():
     save_color_new_image = None
     try:
         if form.validate_on_submit():
-            print(f"{request.form.get('checkbox_noise')}")
 
             filename = os.path.join(
                 "./static", secure_filename(form.upload.data.filename)
@@ -117,7 +117,9 @@ def default_router():
                 b=blue_color,
                 horisontal=(False if form.mark_position.data == "horisontal" else True),
             )
+            print("decode", decode)
             if decode is not None:
+                print("decode", decode)
                 split_filename = filename.split(os.sep)
                 save_file = (
                     os.sep.join(split_filename[:-1])
@@ -162,6 +164,7 @@ def default_router():
 
     except Exception as error:
         print(error)
+    print(save_file)
     return render_template(
         "index.html",
         form=form,
