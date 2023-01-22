@@ -48,7 +48,7 @@ class FilterForm(FlaskForm):
         ],
         description="jpg, png, jpeg",
     )
-    #recaptcha = RecaptchaField()
+    # recaptcha = RecaptchaField()
     red_color = DecimalField(
         label="Процент красного цвета",
         validators=[
