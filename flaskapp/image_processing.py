@@ -1,9 +1,6 @@
-import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
-
-matplotlib.use("TkAgg")
 
 
 def open_image(file_name: str) -> Image:
