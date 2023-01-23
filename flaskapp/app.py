@@ -6,7 +6,6 @@ from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm, RecaptchaField
 from flask_wtf.file import FileAllowed, FileField, FileRequired
 from image_processing import (
-    color_distance,
     image_color_distribution,
     mark_plot,
     open_image,
@@ -29,7 +28,7 @@ app.config["RECAPTCHA_OPTIONS"] = {"theme": "dark light"}
 bootstrap = Bootstrap(app)
 
 
-class FilterForm(FlaskForm):
+class ImageForm(FlaskForm):
     mark_position = SelectField(
         "Положение креста",
         choices=[
@@ -91,7 +90,7 @@ class FilterForm(FlaskForm):
 
 @app.route("/", methods=["GET", "POST"])
 def default_router():
-    form = FilterForm()
+    form = ImageForm()
     filename = None
     save_file = None
     save_delta_image = None
