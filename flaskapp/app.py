@@ -1,31 +1,29 @@
 import os
 import secrets
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm, RecaptchaField
 from flask_wtf.file import FileAllowed, FileField, FileRequired
-from werkzeug.utils import secure_filename
-from wtforms import (
-    DecimalField,
-    SelectField,
-    SubmitField,
-    RadioField,
-)
-from wtforms.validators import DataRequired, NumberRange
 from image_processing import (
-    open_image,
     color_distance,
     image_color_distribution,
     mark_plot,
+    open_image,
 )
-
+from werkzeug.utils import secure_filename
+from wtforms import DecimalField, RadioField, SelectField, SubmitField
+from wtforms.validators import NumberRange
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = secrets.token_urlsafe(16)
-# app.config["RECAPTCHA_USE_SSL"] = False
-# app.config["RECAPTCHA_PUBLIC_KEY"] = os.environ.get("RECAPTCHA_PUBLIC_KEY")
-# app.config["RECAPTCHA_PRIVATE_KEY"] = os.environ.get("RECAPTCHA_PRIVATE_KEY")
+app.config["RECAPTCHA_USE_SSL"] = False
+app.config[
+    "RECAPTCHA_PUBLIC_KEY"
+] = "6LfGIRskAAAAACov47C0hN0LAEUhUh3aO7zSWOCu"  # os.environ.get("RECAPTCHA_PUBLIC_KEY")
+app.config[
+    "RECAPTCHA_PRIVATE_KEY"
+] = "6LfGIRskAAAAAJfBJVYyVoe31TFUXZ7jidvON3jb"  # os.environ.get("RECAPTCHA_PRIVATE_KEY")
 # app.config["SESSION_COOKIE_DOMAIN"] = False
 app.config["RECAPTCHA_OPTIONS"] = {"theme": "dark light"}
 bootstrap = Bootstrap(app)
@@ -49,7 +47,7 @@ class FilterForm(FlaskForm):
         ],
         description="jpg, png, jpeg",
     )
-    #    recaptcha = RecaptchaField()
+    recaptcha = RecaptchaField()
     red_color = DecimalField(
         label="Процент красного цвета",
         validators=[
@@ -117,7 +115,6 @@ def default_router():
                 b=blue_color,
                 horisontal=(False if form.mark_position.data == "horisontal" else True),
             )
-            print("decode", decode)
             if decode is not None:
                 print("decode", decode)
                 split_filename = filename.split(os.sep)

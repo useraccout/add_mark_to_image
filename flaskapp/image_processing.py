@@ -58,13 +58,4 @@ def image_color_distribution(image: str) -> plt.figure:
     blue.imshow(image[:, :, 2], cmap="Blues")
     green.imshow(image[:, :, 1], cmap="Greens")
     fig.tight_layout()
-    plt.show()
     return fig
-
-
-def color_distance(image_left: str, image_right: str) -> Image:
-    image_left = Image.open(image_left)
-    image_right = Image.open(image_right)
-    image_left = np.array(image_left)
-    image_right = np.array(image_right)
-    return Image.fromarray(image_left - image_right)
